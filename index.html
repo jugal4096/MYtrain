@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYTRAIN - Premium Splash</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html, body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:'Montserrat', sans-serif;
+  background:black;
+  opacity:1;
+  transition:opacity 1s ease;
+}
+
+/* VIDEO */
+video{
+  position:fixed;
+  top:50%;
+  left:50%;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:translate(-50%, -50%);
+  z-index:0;
+  filter:brightness(0.75) contrast(1.15) saturate(1.05);
+}
+
+/* OVERLAY */
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.55));
+}
+
+/* CENTER */
+.center{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  z-index:2;
+}
+
+/* TITLE */
+.title{
+  font-family:'Playfair Display', serif;
+  font-size:64px;
+  letter-spacing:2px;
+  opacity:0;
+  font-weight:700;
+
+  background:linear-gradient(120deg,#7de2ff,#8fb2ff,#b18cff,#7de2ff);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  text-shadow:0 0 18px rgba(120,170,255,0.35);
+  animation: shimmer 6s linear infinite;
+}
+
+/* LOADING TEXT */
+.loading{
+  margin-top:22px;
+  font-size:20px;
+  color:#dbe7ff;
+  opacity:0;
+  letter-spacing:1.2px;
+}
+
+/* LOADER */
+.loader{
+  margin:26px auto 0;
+  width:360px;
+  height:7px;
+  background:rgba(255,255,255,0.18);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.loader-bar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#7de2ff,#8fb2ff,#b18cff,#7de2ff);
+  box-shadow:0 0 14px rgba(120,170,255,0.6);
+  border-radius:20px;
+}
+
+/* VIGNETTE */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.7));
+  pointer-events:none;
+}
+
+/* SHIMMER */
+@keyframes shimmer{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+</style>
+</head>
+
+<body>
+
+<video id="bgVideo" autoplay muted loop playsinline preload="auto">
+  <source src="YouCut_20260216_112010655.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="center">
+  <div class="title">WELCOME TO MYTRAIN</div>
+  <div class="loading">Initializing...</div>
+
+  <div class="loader">
+    <div class="loader-bar" id="loader"></div>
+  </div>
+</div>
+
+<script>
+
+const video = document.getElementById("bgVideo");
+video.play().catch(()=>{});
+
+// TITLE + TEXT ANIMATION
+gsap.fromTo(".title",{opacity:0,y:-20},{opacity:1,y:0,duration:2,ease:"power3.out"});
+gsap.to(".loading",{opacity:1,delay:1,duration:1.5,ease:"power3.out"});
+
+const loaderBar = document.getElementById("loader");
+const loadingText = document.querySelector(".loading");
+
+let progress = 0;
+
+const messages = [
+  "Initializing Engine...",
+  "Loading Assets...",
+  "Optimizing Performance...",
+  "Preparing Interface...",
+  "Almost Ready..."
+];
+
+function gameStyleLoader(){
+
+if(progress >= 100){
+  loadingText.innerText = "Launching MYTRAIN...";
+
+  setTimeout(()=>{
+    document.body.style.opacity = "0";
+    setTimeout(()=>{
+      window.location.href = "dashboard.html";
+    },800);   // smoother fade
+  },900);     // slightly longer finish pause
+  return;
+}
+
+let randomStep;
+let randomDelay;
+
+if(progress < 30){
+  randomStep = 1.4 + Math.random()*1.0;   // slower start
+  randomDelay = 90 + Math.random()*60;
+  loadingText.innerText = messages[0];
+
+} else if(progress < 60){
+  randomStep = 1.2 + Math.random()*0.9;
+  randomDelay = 100 + Math.random()*70;
+  loadingText.innerText = messages[1];
+
+} else if(progress < 85){
+  randomStep = 1.0 + Math.random()*0.8;
+  randomDelay = 120 + Math.random()*80;
+  loadingText.innerText = messages[2];
+
+} else {
+  randomStep = 0.8 + Math.random()*0.6;
+  randomDelay = 140 + Math.random()*90;
+  loadingText.innerText = messages[3];
+}
+
+progress += randomStep;
+if(progress > 100) progress = 100;
+
+loaderBar.style.width = progress + "%";
+
+setTimeout(gameStyleLoader, randomDelay);
+}
+
+gameStyleLoader();
+
+
+</script>
+
+</body>
+</html>

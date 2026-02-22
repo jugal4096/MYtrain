@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYTRAIN Dashboard</title>
+
+<link rel="stylesheet" href="dashboard.css">
+<script defer src="dashboard.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <div class="menu-btn" onclick="toggleDrawer()">
+        <i class="fa fa-bars"></i>
+    </div>
+    <h1>MYTRAIN – <span>aap ka apna rail sathi</span></h1>
+</header>
+
+<!-- ================= DRAWER ================= -->
+<div id="drawer" class="drawer">
+    <h2>🚆 MYTRAIN</h2>
+
+    <a href="#"><i class="fa-solid fa-gift"></i> Your Rewards</a>
+    <a href="#"><i class="fa-solid fa-chair"></i> Seat Availability</a>
+    <a href="#"><i class="fa-solid fa-chart-column"></i> Reservation Chart</a>
+    <a href="review.html"><i class="fa-solid fa-star"></i> Train Review</a>
+    <a href="#"><i class="fa-solid fa-train-subway"></i> Local / Metro</a>
+    <a href="#"><i class="fa-solid fa-location-crosshairs"></i> Offline Tracking</a>
+    <a href="#"><i class="fa-solid fa-utensils"></i> Food Order</a>
+    <a href="#"><i class="fa-solid fa-ticket"></i> Ticket Reservation</a>
+    <a href="#"><i class="fa-solid fa-bug"></i> Report Bugs</a>
+    <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+</div>
+
+<div id="overlay"></div>
+
+<!-- ================= MAIN ================= -->
+<div class="container">
+
+    <!-- ===== ROUTE FINDER ===== -->
+    <div class="card">
+        <h3>🚉 Train Route Finder</h3>
+
+        <div class="route-box">
+
+            <!-- FROM -->
+            <div class="input-wrapper">
+                <input id="from" type="text" placeholder="Departure Station">
+                <span class="clear-btn" onclick="clearInput('from')">✖</span>
+                <div id="from-list" class="suggestions"></div>
+            </div>
+
+            <!-- SWAP -->
+            <button onclick="swapStations()">⇄</button>
+
+            <!-- TO -->
+            <div class="input-wrapper">
+                <input id="to" type="text" placeholder="Arrival Station">
+                <span class="clear-btn" onclick="clearInput('to')">✖</span>
+                <div id="to-list" class="suggestions"></div>
+            </div>
+
+        </div>
+
+        <button class="primary">Search Train</button>
+
+        <!-- RECENT SEARCH -->
+        <h4 style="margin-top:15px;">🕘 Recent Searches</h4>
+        <ul id="history">
+            <li>No recent searches</li>
+        </ul>
+    </div>
+
+    <!-- ===== QUICK TOOLS ===== -->
+    <div class="card">
+        <h3>⚡ Quick Tools</h3>
+
+        <input type="text" placeholder="Search Train Number / Name">
+        <button>Search Train</button>
+
+        <input type="text" placeholder="Check PNR Status">
+        <button>Check PNR</button>
+
+        <input type="text" placeholder="Station Departure Board">
+        <button>Fetch Station</button>
+    </div>
+
+    <!-- ===== NEWS ===== -->
+    <div class="card">
+        <h3>📰 Latest News</h3>
+
+        <a href="https://news.google.com/search?q=indian+railways" target="_blank" class="news-card">
+            <div class="news-text">
+                <h4>Indian Railways Updates</h4>
+                <p>New trains, rule changes and latest railway announcements.</p>
+                <span>Google News</span>
+            </div>
+            <img src="https://source.unsplash.com/140x140/?train" alt="rail news">
+        </a>
+
+        <a href="https://news.google.com/search?q=vande+bharat" target="_blank" class="news-card">
+            <div class="news-text">
+                <h4>Vande Bharat Expansion</h4>
+                <p>Modern semi-high speed trains expanding across India.</p>
+                <span>Google News</span>
+            </div>
+            <img src="https://source.unsplash.com/140x140/?vande,bharat,train" alt="vande bharat">
+        </a>
+
+        <button class="readmore" onclick="openNews()">Read More →</button>
+    </div>
+
+</div>
+
+</body>
+</html>
