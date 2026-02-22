@@ -59,7 +59,7 @@ async function fetchAllTrains(){
   showLoading();
 
   try{
-    const res = await fetch(`http://localhost:3000/trains/betweenStations?from=${FROM}&to=${TO}`);
+    const res = await fetch(`https://mytrain-backend.onrender.com/trains/betweenStations?from=${FROM}&to=${TO}`);
     const json = await res.json();
 
     if(!json.success || !json.data.length){
@@ -237,4 +237,5 @@ function goBack(){
   } else {
     window.location.href="dashboard.html";
   }
+
 }
